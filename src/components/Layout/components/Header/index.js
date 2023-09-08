@@ -6,12 +6,14 @@ import {
    faCircleXmark,
    faSpinner,
    faMagnifyingGlass,
+   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 
 import styles from "./Header.module.scss";
 import image from "~/assets/images";
 import { Wrapper as PopperWrapper } from "~/components/Popper";
 import AccountItem from "~/components/AccountItem";
+import Button from "~/components/Button";
 
 const cx = classNames.bind(styles);
 
@@ -66,7 +68,12 @@ const Header = () => {
                </div>
             </Tippy>
 
-            <div className={cx("actions")}>actions</div>
+            <div className={cx("actions")}>
+               <Button outline leftIcon={<FontAwesomeIcon icon={faPlus} />}>
+                  Upload
+               </Button>
+               <Button primary>Log in</Button>
+            </div>
          </div>
       </header>
    );
