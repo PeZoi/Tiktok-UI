@@ -1,11 +1,12 @@
 import classNames from "classnames/bind";
 import Tippy from "@tippyjs/react/headless";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLaptop, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import styles from "./Download.module.scss";
 import image from "~/assets/images";
 import { Wrapper as PopperWrapper } from "~/components/Popper";
 import Button from "~/components/Button";
+import { DesktopMobileIcon } from "~/components/Icons";
 
 const cx = classNames.bind(styles);
 
@@ -49,7 +50,7 @@ const IconDownload = () => {
          }}
       >
          <button className={cx("more-btn")}>
-            <FontAwesomeIcon icon={faLaptop} />
+            <DesktopMobileIcon />
          </button>
       </Tippy>
    );

@@ -1,13 +1,9 @@
 import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import HeadlessTippy from "@tippyjs/react/headless";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import { useEffect, useState } from "react";
 import {
-   faCircleXmark,
-   faSpinner,
-   faMagnifyingGlass,
    faPlus,
    faEllipsisVertical,
    faEarthAsia,
@@ -20,18 +16,18 @@ import {
    faMoon,
    faLightbulb,
    faKeyboard,
-   faMessage,
    faUser,
    faBookmark,
 } from "@fortawesome/free-regular-svg-icons";
 
 import styles from "./Header.module.scss";
 import image from "~/assets/images";
-import { Wrapper as PopperWrapper } from "~/components/Popper";
-import AccountItem from "~/components/AccountItem";
 import Button from "~/components/Button";
 import Menu from "~/components/Popper/Menu";
 import IconDownload from "./Download";
+import { InboxIcon, MessageIcon } from "~/components/Icons";
+import Image from "~/components/Image";
+import Search from "./Search";
 
 const cx = classNames.bind(styles);
 
@@ -103,16 +99,15 @@ const USER_MENU = [
    },
 ];
 
-const currentUser = true;
-
 const Header = () => {
+   const currentUser = true;
    const [searchResult, setSearchResult] = useState([]);
 
-   // useEffect(() => {
-   //    setTimeout(() => {
-   //       setSearchResult([1, 2, 3]);
-   //    }, 0);
-   // });
+   useEffect(() => {
+      setTimeout(() => {
+         setSearchResult([1, 2, 3]);
+      }, 0);
+   });
 
    return (
       <header className={cx("wrapper")}>
@@ -121,40 +116,7 @@ const Header = () => {
                <img src={image.logo} alt="Tiktok" />
             </div>
 
-            <HeadlessTippy
-               interactive
-               visible={searchResult.length > 0}
-               render={(attrs) => {
-                  return (
-                     <div
-                        className={cx("search-result")}
-                        tabIndex="-1"
-                        {...attrs}
-                     >
-                        <PopperWrapper>
-                           <h4 className={cx("search-title")}>Account</h4>
-                           <AccountItem></AccountItem>
-                           <AccountItem></AccountItem>
-                           <AccountItem></AccountItem>
-                           <AccountItem></AccountItem>
-                        </PopperWrapper>
-                     </div>
-                  );
-               }}
-            >
-               <div className={cx("search")}>
-                  <input placeholder="Search" spellCheck={false} />
-                  <button className={cx("clear")}>
-                     <FontAwesomeIcon icon={faCircleXmark} />
-                  </button>
-
-                  <FontAwesomeIcon className={cx("loading")} icon={faSpinner} />
-
-                  <button className={cx("search-btn")}>
-                     <FontAwesomeIcon icon={faMagnifyingGlass} />
-                  </button>
-               </div>
-            </HeadlessTippy>
+            <Search />
 
             <div className={cx("actions")}>
                <Button outline leftIcon={<FontAwesomeIcon icon={faPlus} />}>
@@ -167,7 +129,12 @@ const Header = () => {
                   <>
                      <Tippy content="Messages" placement="bottom">
                         <button className={cx("more-btn")}>
-                           <FontAwesomeIcon icon={faMessage} />
+                           <MessageIcon />
+                        </button>
+                     </Tippy>
+                     <Tippy content="Inbox" placement="bottom">
+                        <button className={cx("more-btn")}>
+                           <InboxIcon />
                         </button>
                      </Tippy>
                   </>
@@ -181,11 +148,11 @@ const Header = () => {
 
                <Menu items={currentUser ? USER_MENU : MENU_ITEMS}>
                   {currentUser ? (
-                     <img
+                     <Image
                         className={cx("user-avatar")}
                         src="https://p16-sign-va.tiktokcdn.com/tos-maliva-avt-0068/9fd720457d9464f2fd721ceb3e010583~c5_100x100.jpeg?x-expires=1694347200&x-signature=Jh0DjVBwZEyfCRKS21jZku0U7ac%3D"
                         alt="avatar"
-                     ></img>
+                     />
                   ) : (
                      <button className={cx("more-btn")}>
                         <FontAwesomeIcon icon={faEllipsisVertical} />
